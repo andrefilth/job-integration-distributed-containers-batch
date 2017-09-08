@@ -1,5 +1,7 @@
 package br.com.cea.transporte.batch.sercdc.repository;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
 
 @Repository
+@Transactional
 public interface PalletsRepository extends CrudRepository<PalletsModel, Long> {
 
 //	Optional<PalletsModel> findById(Long id);

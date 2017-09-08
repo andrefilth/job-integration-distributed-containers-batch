@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(	  entityManagerFactoryRef = "EntityManagerFactory"
-						, transactionManagerRef = "TransactionManager"
+@EnableJpaRepositories(	  entityManagerFactoryRef = "entityManagerFactory"
+						, transactionManagerRef = "transactionManager"
 						, basePackages = {"br.com.cea.transporte.batch.rwms.repository" })
 public class RwmsDataBaseConfig {
 
@@ -29,8 +29,8 @@ public class RwmsDataBaseConfig {
 							    .build();
 	}
 
-	@Bean(name = "EntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean EntityManagerFactory(EntityManagerFactoryBuilder builder,
+	@Bean(name = "entityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("rwmDataSource") DataSource dataSource) {
 		return builder.dataSource(dataSource)
 				      .packages("br.com.cea.transporte.batch.rwms.model")
@@ -38,9 +38,9 @@ public class RwmsDataBaseConfig {
 				      .build();
 	}
 
-	@Bean(name = "TransactionManager")
-	public PlatformTransactionManager TransactionManager(
-			@Qualifier("EntityManagerFactory") EntityManagerFactory EntityManagerFactory) {
+	@Bean(name = "transactionManager")
+	public PlatformTransactionManager transactionManager(
+			@Qualifier("entityManagerFactory") EntityManagerFactory EntityManagerFactory) {
 		return new JpaTransactionManager(EntityManagerFactory);
 	}
 

@@ -11,19 +11,21 @@ public class IntegrationDistributedItemReader implements ItemReader<PalletsModel
 
 	@Autowired
 	private PalletsService service;
-	
+
 	@Autowired
 	private DistribuicaoContinuaService services;
-	@Autowired
-//	@Qualifier("datasource")
-//	private DataSource source;
+
+	private boolean batchJobState = false;
 
 	@Override
 	public PalletsModel read() throws Exception {
-		
-		Long id = 928385L;
-		this.services.consultar();
-		this.service.alterarRegistros(id);
+		if (!batchJobState) {
+			Long id = 928385L;
+			this.services.consultar();
+			this.service.alterarRegistros(id);
+			batchJobState=true;
+			return new PalletsModel();
+		}
 		return null;
 	}
 
