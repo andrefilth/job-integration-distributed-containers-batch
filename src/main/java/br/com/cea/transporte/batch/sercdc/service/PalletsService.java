@@ -1,10 +1,12 @@
-package br.com.cea.transporte.integration.distributed.service;
+package br.com.cea.transporte.batch.sercdc.service;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.cea.transporte.integration.distributed.model.PalletsModel;
-import br.com.cea.transporte.integration.distributed.repository.PalletsRepository;
+import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
+import br.com.cea.transporte.batch.sercdc.repository.PalletsRepository;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -16,6 +18,7 @@ public class PalletsService {
 
 	private String retorno;
 
+	@Transactional
 	public void alterarRegistros(Long id) {
 //		id = 928385L;
 		PalletsModel model = this.repository.findOne(id);

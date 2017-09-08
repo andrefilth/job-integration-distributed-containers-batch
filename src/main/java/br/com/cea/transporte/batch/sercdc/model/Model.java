@@ -1,4 +1,4 @@
-package br.com.cea.transporte.integration.distributed.model;
+package br.com.cea.transporte.batch.sercdc.model;
 
 import java.io.Serializable;
 

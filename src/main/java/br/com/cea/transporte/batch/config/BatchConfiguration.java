@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.cea.transporte.batch.processor.IntegrationDistributedProcessor;
 import br.com.cea.transporte.batch.reader.IntegrationDistributedItemReader;
+import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
 
 
 @Configuration
@@ -32,22 +33,22 @@ public class BatchConfiguration {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
-
+	
 
 	@Bean
-	public Step loadIntegrationStep( @Qualifier("integrationDistributedItemReader") ItemReader<Object> reader
-									,@Qualifier("integrationDistributedProcessor") ItemProcessor<Object, Object> processor
+	public Step loadIntegrationStep( @Qualifier("integrationDistributedItemReader") ItemReader<PalletsModel> reader
+									,@Qualifier("integrationDistributedProcessor") ItemProcessor<PalletsModel, PalletsModel> processor
 //									,@Qualifier("citasWriter") ItemWriter<Object> writer
 									) 
 	{
 
-		CompositeItemProcessor<Object, Object> compositeProcessor = new CompositeItemProcessor<>();
-		List<ItemProcessor<Object, Object>> itemProcessors = new ArrayList<>();
+		CompositeItemProcessor<PalletsModel, PalletsModel> compositeProcessor = new CompositeItemProcessor<>();
+		List<ItemProcessor<PalletsModel, PalletsModel>> itemProcessors = new ArrayList<>();
 		itemProcessors.add(processor);
 		compositeProcessor.setDelegates(itemProcessors);
 		
 		return stepBuilderFactory.get("loadIntegrationStep")
-				.<Object, Object>chunk(10)
+				.<PalletsModel, PalletsModel>chunk(10)
 				.reader(reader)
 				.processor(compositeProcessor)
 //				.writer(writer)
@@ -64,17 +65,17 @@ public class BatchConfiguration {
 	}
 	
 	@Bean
-	public ItemReader<Object> integrationDistributedItemReader() {
+	public ItemReader<PalletsModel> integrationDistributedItemReader() {
 		return new IntegrationDistributedItemReader();
 	}
 
 	@Bean
-	public ItemProcessor<Object, Object> integrationDistributedProcessor() {
+	public ItemProcessor<PalletsModel, PalletsModel> integrationDistributedProcessor() {
 		return new IntegrationDistributedProcessor();
 	}
 
 //	@Bean
-//	public ItemWriter<Object> citasWriter() {
+//	public ItemWriter<PalletsModel> citasWriter() {
 //		return new IntegrationDistributedWriter();
 //	}
 

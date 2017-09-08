@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.batch.item.ItemWriter;
 
-public class IntegrationDistributedWriter implements ItemWriter<Object> {
+import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
+
+public class IntegrationDistributedWriter implements ItemWriter<PalletsModel> {
 
 	@Override
-	public void write(List<? extends Object> items) throws Exception {
+	public void write(List<? extends PalletsModel> items) throws Exception {
 		// TODO Auto-generated method stub
 
 	}

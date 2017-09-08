@@ -2,13 +2,14 @@ package br.com.cea.transporte.batch.processor;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import lombok.extern.java.Log;
+import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
+import lombok.extern.log4j.Log4j2;
 
-@Log
-public class IntegrationDistributedProcessor implements ItemProcessor<Object, Object> {
+@Log4j2
+public class IntegrationDistributedProcessor implements ItemProcessor<PalletsModel, PalletsModel> {
 
 	@Override
-	public Object process(Object item) throws Exception {
+	public PalletsModel process(PalletsModel item) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

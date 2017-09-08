@@ -1,4 +1,4 @@
-package br.com.cea.transporte.batch;
+package br.com.cea.transporte;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

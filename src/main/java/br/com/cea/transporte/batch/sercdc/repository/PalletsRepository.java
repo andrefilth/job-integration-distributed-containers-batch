@@ -1,10 +1,10 @@
-package br.com.cea.transporte.integration.distributed.repository;
+package br.com.cea.transporte.batch.sercdc.repository;
 
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.cea.transporte.integration.distributed.model.PalletsModel;
+import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
 
 @Repository
 public interface PalletsRepository extends CrudRepository<PalletsModel, Long> {
