@@ -22,7 +22,6 @@ import br.com.cea.transporte.batch.processor.IntegrationDistributedProcessor;
 import br.com.cea.transporte.batch.reader.IntegrationDistributedItemReader;
 import br.com.cea.transporte.batch.sercdc.model.PalletsModel;
 
-
 @Configuration
 @EnableBatchProcessing
 @EnableAutoConfiguration
@@ -33,37 +32,26 @@ public class BatchConfiguration {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
-	
 
 	@Bean
-	public Step loadIntegrationStep( @Qualifier("integrationDistributedItemReader") ItemReader<PalletsModel> reader
-									,@Qualifier("integrationDistributedProcessor") ItemProcessor<PalletsModel, PalletsModel> processor
-//									,@Qualifier("citasWriter") ItemWriter<Object> writer
-									) 
-	{
+	public Step loadIntegrationStep(@Qualifier("integrationDistributedItemReader") ItemReader<PalletsModel> reader,
+			@Qualifier("integrationDistributedProcessor") ItemProcessor<PalletsModel, PalletsModel> processor) {
 
 		CompositeItemProcessor<PalletsModel, PalletsModel> compositeProcessor = new CompositeItemProcessor<>();
 		List<ItemProcessor<PalletsModel, PalletsModel>> itemProcessors = new ArrayList<>();
 		itemProcessors.add(processor);
 		compositeProcessor.setDelegates(itemProcessors);
-		
-		return stepBuilderFactory.get("loadIntegrationStep")
-				.<PalletsModel, PalletsModel>chunk(10)
-				.reader(reader)
+
+		return stepBuilderFactory.get("loadIntegrationStep").<PalletsModel, PalletsModel>chunk(10).reader(reader)
 				.processor(compositeProcessor)
-//				.writer(writer)
 				.build();
 	}
 
-
 	@Bean
 	public Job job(@Qualifier("loadIntegrationStep") Step loadIntegrationStep) throws Exception {
-		return jobBuilderFactory.get("job")
-								.incrementer(new RunIdIncrementer())
-								.start(loadIntegrationStep)
-								.build();
+		return jobBuilderFactory.get("job").incrementer(new RunIdIncrementer()).start(loadIntegrationStep).build();
 	}
-	
+
 	@Bean
 	public ItemReader<PalletsModel> integrationDistributedItemReader() {
 		return new IntegrationDistributedItemReader();
@@ -74,9 +62,9 @@ public class BatchConfiguration {
 		return new IntegrationDistributedProcessor();
 	}
 
-//	@Bean
-//	public ItemWriter<PalletsModel> citasWriter() {
-//		return new IntegrationDistributedWriter();
-//	}
+	// @Bean
+	// public ItemWriter<PalletsModel> citasWriter() {
+	// return new IntegrationDistributedWriter();
+	// }
 
 }

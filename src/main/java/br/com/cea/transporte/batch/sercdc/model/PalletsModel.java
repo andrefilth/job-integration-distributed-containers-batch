@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 		  @StoredProcedureParameter(mode = ParameterMode.IN, name = "cajas", type = Integer.class),
 		  @StoredProcedureParameter(mode = ParameterMode.IN, name = "unidades", type = Integer.class),
 		  @StoredProcedureParameter(mode = ParameterMode.IN, name = "piezas", type = Integer.class),
-		  @StoredProcedureParameter(mode = ParameterMode.OUT, name = "retorno", type = String.class),
+//		  @StoredProcedureParameter(mode = ParameterMode.OUT, name = "retorno", type = String.class),
 		  })
 @EqualsAndHashCode(callSuper = false)
 @Data

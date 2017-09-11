@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(entityManagerFactoryRef = "serEntityManagerFactory"
 					 , transactionManagerRef = "serTransactionManager"
 					 , basePackages = {	"br.com.cea.transporte.batch.sercdc.repository" })
-public class SerDataBaseConfig {
+public class SerCdcDataBaseConfig {
 
 	@Primary
 	@Bean(name = "dataSource")

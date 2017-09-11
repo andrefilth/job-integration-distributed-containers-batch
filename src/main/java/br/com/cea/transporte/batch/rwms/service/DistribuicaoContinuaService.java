@@ -1,5 +1,9 @@
 package br.com.cea.transporte.batch.rwms.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +21,11 @@ public class DistribuicaoContinuaService {
 	private DistribuicaoContinuaRepository repository;
 
 	@Transactional
-	public void consultar() {
+	public List<DistribuicaoContinua> consultar() {
 
 		Iterable<DistribuicaoContinua> findAll = this.repository.findAll();
-		log.info("Resultado: " +findAll);
+		log.info("Resultado: " + findAll);
+
+		return StreamSupport.stream(findAll.spliterator(), false).collect(Collectors.toList());
 	}
 }
